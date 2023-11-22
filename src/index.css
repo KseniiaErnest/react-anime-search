@@ -1,13 +1,78 @@
-body {
+* {
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  font-size:  100%;
+}
+
+body {
+  padding: 1.5rem;
+}
+
+
+/* Navbar and Search */
+
+.navbar {
+  background-color: bisque;
+  margin: 0 auto;
+  width: 95%;
+  height: 4rem;
+  border-radius: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  display: flex;
+  padding-left: 2rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-result {
+  padding-right: 2rem;
+}
+
+.nav-search {
+  font-size: 1.5rem;
+  width: 50%;
+}
+
+/* Main and Box */
+.main {
+  display: flex;
+  margin-top: 2rem;
+  height: calc(100vh - 4.5rem - 3 * 1.5rem);
+justify-content: center;
+gap: 1.5rem;
+
+}
+
+.box {
+  width: 37rem;
+  max-width: 37rem;
+  background-color: blanchedalmond;
+  border-radius: 11px;
+  
+}
+
+/* AnimeList and AnimeInfo  */
+.anime-ul {
+  list-style: none;
+  padding: 0.5rem 0;
+}
+
+.anime-info-li {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #c4b3b346;
+}
+
+.anime-info-li img {
+  width: 4.7rem;
 }
