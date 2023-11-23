@@ -4,6 +4,8 @@ import Search from './components/Search';
 import Main from './components/Main';
 import Box from './components/Box';
 import AnimeList from "./components/AnimeList";
+import Loader from "./components/Loader";
+import Error from "./components/Error";
 
 const animeListTemp = [
   {title: 'Naruto',
@@ -25,17 +27,54 @@ id: 2,
 
 function App() {
   const [anime, setAnime] = useState(animeListTemp);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [query, setQuery] = useState('');
+  // const tempQueary = 'naruto';
+  
 
+  useEffect(function () {
+
+    async function fetchAnime() {
+      try{
+        setIsLoading(true);
+        setError('');
+      const res = await fetch(`https://api.jikan.moe/v4/anime?q=${query}&limit=5`);
+
+      if (!res.ok) throw new Error('Something went wrong with fetching anime')
+
+      const data = await res.json();
+      // if (data.length === 0) throw new Error('Anime not found')
+      console.log(data.data);
+
+      setAnime(data.data);
+      
+    }catch(err) {
+setError(err.message);
+    }finally {
+      setIsLoading(false);
+    }
+    }
+    if (query.length < 3) {
+      setAnime([]);
+      setError('');
+      return;
+    }
+fetchAnime();
+  }, [query]);
 
   return (
     <div >
      <Navbar>
-<Search />
+<Search query={query} setQuery={setQuery} />
      </Navbar>
 
      <Main>
 <Box>
-<AnimeList anime={anime} />
+{/* {isLoading ? <Loader /> : <AnimeList anime={anime} />} */}
+{isLoading && <Loader />}
+{!isLoading && !error && <AnimeList anime={anime} />}
+{error && <Error message={error}/>}
 </Box>
 <Box></Box>
      </Main>
