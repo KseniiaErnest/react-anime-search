@@ -6,6 +6,9 @@ import Box from './components/Box';
 import AnimeList from "./components/AnimeList";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
+import AnimeDetails from "./components/AnimeDetails";
+import WatchedAnimeSummary from "./components/WatchedAnimeSummary";
+import WatchedAnimeList from "./components/WatchedAnimeList";
 
 const animeListTemp = [
   {title: 'Naruto',
@@ -26,11 +29,20 @@ id: 2,
 ]
 
 function App() {
-  const [anime, setAnime] = useState(animeListTemp);
+  const [anime, setAnime] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [query, setQuery] = useState('');
+  const [selectId, setSelectId] = useState(null);
   // const tempQueary = 'naruto';
+
+  function handleSelectAnime(id) {
+    setSelectId((currentId) => (id === currentId ? null : id));
+  };
+
+  function handleCloseAnime() {
+    setSelectId(null);
+  }
   
 
   useEffect(function () {
@@ -73,10 +85,21 @@ fetchAnime();
 <Box>
 {/* {isLoading ? <Loader /> : <AnimeList anime={anime} />} */}
 {isLoading && <Loader />}
-{!isLoading && !error && <AnimeList anime={anime} />}
+{!isLoading && !error && <AnimeList anime={anime} onSelectAnime={handleSelectAnime} />}
 {error && <Error message={error}/>}
 </Box>
-<Box></Box>
+<Box>
+  {selectId ? 
+  (<AnimeDetails selectId={selectId} onCloseAnime={handleCloseAnime} anime={anime} />)
+  :
+  (<>
+    <WatchedAnimeSummary />
+  <WatchedAnimeList />
+  </>  )
+    
+  }
+
+</Box>
      </Main>
     </div>
   );

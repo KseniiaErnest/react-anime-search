@@ -1,7 +1,7 @@
-export default function AnimeInfo( {oneAnime} ) {
+export default function AnimeInfo( {oneAnime, onSelectAnime} ) {
 
   return (
-    <li className="anime-info-li">
+    <li className="anime-info-li" onClick={() => onSelectAnime(oneAnime.mal_id)}>
 <img src={oneAnime.images?.jpg?.image_url} alt={oneAnime.title} />
 <div>
   <h2>{oneAnime.title}</h2>
