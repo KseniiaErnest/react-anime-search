@@ -1,7 +1,14 @@
+import { useState } from "react"
+
 export default function Box({children}) {
-  return (
+  const [isOpen, setIsOpen] = useState(true);
+
+  return ( 
     <div className="box">
-{children}
+    <button className="btn-toggle" onClick={() => setIsOpen((current) => !current)}>
+      {isOpen ? '-' : '+'}
+    </button>
+{isOpen && children}
     </div>
   )
 }

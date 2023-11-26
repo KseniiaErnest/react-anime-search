@@ -1,7 +1,7 @@
 export default function WatchedAnimeList() {
 
   return(
-    <div>
+    <div >
       Watched Anime List
     </div>
   )
