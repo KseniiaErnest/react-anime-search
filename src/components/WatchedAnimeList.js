@@ -1,8 +1,17 @@
-export default function WatchedAnimeList() {
+import StarComponent from "./StarComponent"
+
+export default function WatchedAnimeList( {watchedAnime} ) {
 
   return(
-    <div >
-      Watched Anime List
-    </div>
+    <ul className="anime-ul">
+    {watchedAnime.map((anime) => (
+      <li className="anime-info-li">
+      <img src={anime.image} alt={anime.title} />
+      </li>
+    ))
+     
+      }
+    </ul>
   )
 }
+

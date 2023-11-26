@@ -34,6 +34,7 @@ function App() {
   const [error, setError] = useState('');
   const [query, setQuery] = useState('');
   const [selectId, setSelectId] = useState(null);
+  const [watchedAnime, setWatchedAnime] = useState(animeListTemp)
   // const tempQueary = 'naruto';
 
   function handleSelectAnime(id) {
@@ -94,7 +95,7 @@ fetchAnime();
   :
   (<>
     <WatchedAnimeSummary />
-  <WatchedAnimeList />
+  <WatchedAnimeList watchedAnime={watchedAnime} />
   </>  )
     
   }

@@ -1,3 +1,5 @@
+import StarComponent from "./StarComponent";
+
 export default function AnimeDetails( {selectId, onCloseAnime, anime} ) {
 const selectedAnime = anime.find((animeToSelect) => animeToSelect.mal_id === selectId)
 
@@ -21,6 +23,7 @@ const selectedAnime = anime.find((animeToSelect) => animeToSelect.mal_id === sel
     </div>
 
     <div className="anime-details-synopsis">
+    <StarComponent maxRating={5} color='red' className='test' defaultRating={3} />
       <p>{selectedAnime.synopsis}</p>
     </div>
     
