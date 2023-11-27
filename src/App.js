@@ -34,7 +34,7 @@ function App() {
   const [error, setError] = useState('');
   const [query, setQuery] = useState('');
   const [selectId, setSelectId] = useState(null);
-  const [watchedAnime, setWatchedAnime] = useState(animeListTemp)
+  const [watchedAnime, setWatchedAnime] = useState([]);
   // const tempQueary = 'naruto';
 
   function handleSelectAnime(id) {
@@ -43,6 +43,14 @@ function App() {
 
   function handleCloseAnime() {
     setSelectId(null);
+  };
+
+  function handleWatchedAnime(animeToAdd) {
+    setWatchedAnime((currentWatched) => [...currentWatched, animeToAdd]);
+  };
+
+  function handleDeleteWatchedAnime(id) {
+    setWatchedAnime((currentWatched) => currentWatched.filter((animeToDelete) => animeToDelete.animeId !== id));
   }
   
 
@@ -91,11 +99,11 @@ fetchAnime();
 </Box>
 <Box>
   {selectId ? 
-  (<AnimeDetails selectId={selectId} onCloseAnime={handleCloseAnime} anime={anime} />)
+  (<AnimeDetails selectId={selectId} onCloseAnime={handleCloseAnime} anime={anime} onAddWatchedAnime={handleWatchedAnime} watchedAnime={watchedAnime} />)
   :
   (<>
-    <WatchedAnimeSummary />
-  <WatchedAnimeList watchedAnime={watchedAnime} />
+    <WatchedAnimeSummary watchedAnime={watchedAnime} />
+  <WatchedAnimeList watchedAnime={watchedAnime} onDeleteWatchedAnime={handleDeleteWatchedAnime} />
   </>  )
     
   }

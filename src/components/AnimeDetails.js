@@ -1,7 +1,40 @@
+import { useEffect, useState } from "react";
 import StarComponent from "./StarComponent";
 
-export default function AnimeDetails( {selectId, onCloseAnime, anime} ) {
-const selectedAnime = anime.find((animeToSelect) => animeToSelect.mal_id === selectId)
+export default function AnimeDetails( {selectId, onCloseAnime, anime, onAddWatchedAnime, watchedAnime} ) {
+const selectedAnime = anime.find((animeToSelect) => animeToSelect.mal_id === selectId);
+const [userRating, setUserRating] = useState('');
+
+const isWatched = watchedAnime.map((anime) => anime.animeId).includes(selectId);
+const watchedUserRating = watchedAnime.find((anime) => anime.animeId === selectId)?.userRating
+
+
+function handleAdd() {
+
+  const animeToAdd = {
+    animeId: selectId,
+    title: selectedAnime.title,
+    episodes: selectedAnime.episodes,
+    duration: selectedAnime.duration,
+    score: Number(selectedAnime.score),
+    image: selectedAnime.images?.jpg?.image_url,
+    userRating,
+
+  }
+
+  onAddWatchedAnime(animeToAdd);
+  onCloseAnime();
+};
+
+useEffect(function() {
+  if (!selectedAnime.title) return;
+  document.title = `Movie | ${selectedAnime.title}`;
+
+  return function() {
+    document.title = 'Hey Anime!'
+  }
+}, 
+[selectedAnime.title]);
 
   return(
     <div>
@@ -23,7 +56,15 @@ const selectedAnime = anime.find((animeToSelect) => animeToSelect.mal_id === sel
     </div>
 
     <div className="anime-details-synopsis">
-    <StarComponent maxRating={5} color='red' className='test' defaultRating={3} />
+    {!isWatched ? (
+      <>
+      <StarComponent maxRating={10} onSetRating={setUserRating} />
+    {userRating > 0 && (
+      <button onClick={handleAdd}>+ Add to list</button>
+      )}
+      </>) : (
+        <p>You rated this anime {watchedUserRating}</p>
+      )}
       <p>{selectedAnime.synopsis}</p>
     </div>
     

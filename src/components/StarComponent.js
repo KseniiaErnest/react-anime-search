@@ -24,7 +24,7 @@ const textStyle = {
   fontSize: `${size / 1.5}px`
 }
 
-function handleRating() {
+function handleRating(rating) {
   setRating(rating);
   onSetRating(rating);
 }
