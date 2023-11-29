@@ -26,48 +26,76 @@ function handleAdd() {
   onCloseAnime();
 };
 
+// useEffect(function() {
+//   if (!selectedAnime.title) return;
+//   document.title = `Movie | ${selectedAnime.title}`;
+
+//   return function() {
+//     document.title = 'Hey Anime!'
+//   }
+// }, 
+// [selectedAnime.title]);
+useEffect(function () {
+  if (selectedAnime && selectedAnime.title) {
+    document.title = `Movie | ${selectedAnime.title}`;
+  } else {
+    document.title = 'Hey Anime!';
+  }
+
+  return function () {
+    document.title = 'Hey Anime!';
+  };
+}, [selectedAnime]);
+
 useEffect(function() {
-  if (!selectedAnime.title) return;
-  document.title = `Movie | ${selectedAnime.title}`;
+function callback(e) {
+  if (e.code === 'Escape') {
+    onCloseAnime();
+  }
+  };
+
+  document.addEventListener('keydown', callback );
 
   return function() {
-    document.title = 'Hey Anime!'
+    document.removeEventListener('keydown', callback )
   }
-}, 
-[selectedAnime.title]);
+    }, [onCloseAnime]);
 
   return(
-    <div>
- 
-    <div className="anime-details-flex">
-    <button className="btn-back" onClick={onCloseAnime}>&larr;</button>
-<img src={selectedAnime.images?.jpg?.image_url} alt={selectedAnime.title} />
 <div>
-    <h3>{selectedAnime.title}</h3>
-    <p>{selectedAnime.aired.prop.from.year}</p>
-    <p>{selectedAnime.duration}</p>
-    <p>{selectedAnime.episodes} episode(s)</p>
-    <p>Rating: {selectedAnime.rating}</p>
-    <p>⭐ {selectedAnime.score}</p>
-    {selectedAnime.genres && (
-          <p>Genres: {selectedAnime.genres.map((genre) => genre.name).join(', ')}</p>
-        )}
-    </div>
-    </div>
+ 
+ <div className="anime-details-flex">
+ <button className="btn-back" onClick={onCloseAnime}>&larr;</button>
+<img src={selectedAnime?.images?.jpg?.image_url} alt={selectedAnime.title} />
+<div>
+ <h3>{selectedAnime?.title}</h3>
+ <p>{selectedAnime?.aired.prop.from.year}</p>
+ <p>{selectedAnime?.duration}</p>
+ <p>{selectedAnime?.episodes} episode(s)</p>
+ <p>Rating: {selectedAnime?.rating}</p>
+ <p>⭐ {selectedAnime?.score}</p>
+ {selectedAnime?.genres && (
+       <p>Genres: {selectedAnime.genres.map((genre) => genre.name).join(', ')}</p>
+     )}
+ </div>
+ </div>
 
-    <div className="anime-details-synopsis">
-    {!isWatched ? (
-      <>
-      <StarComponent maxRating={10} onSetRating={setUserRating} />
-    {userRating > 0 && (
-      <button onClick={handleAdd}>+ Add to list</button>
-      )}
-      </>) : (
-        <p>You rated this anime {watchedUserRating}</p>
-      )}
-      <p>{selectedAnime.synopsis}</p>
-    </div>
-    
-    </div>
+ <div className="anime-details-synopsis">
+ {!isWatched ? (
+   <>
+   <StarComponent maxRating={10} onSetRating={setUserRating} />
+ {userRating > 0 && (
+   <button onClick={handleAdd}>+ Add to list</button>
+   )}
+   </>) : (
+     <p>You rated this anime {watchedUserRating}</p>
+   )}
+   <p>{selectedAnime?.synopsis}</p>
+ </div>
+ 
+ </div> 
+
+ 
   )
+
 }
