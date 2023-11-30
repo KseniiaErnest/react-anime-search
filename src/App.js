@@ -89,7 +89,7 @@ return function() {
 
   return (
     <div >
-     <Navbar>
+     <Navbar anime={anime}>
 <Search query={query} setQuery={setQuery} />
      </Navbar>
 
@@ -102,7 +102,7 @@ return function() {
 </Box>
 <Box>
   {selectId ? 
-  (<AnimeDetails selectId={selectId} onCloseAnime={handleCloseAnime} anime={anime} onAddWatchedAnime={handleWatchedAnime} watchedAnime={watchedAnime} />)
+  (<AnimeDetails selectId={selectId} onCloseAnime={handleCloseAnime} anime={anime} onAddWatchedAnime={handleWatchedAnime} watchedAnime={watchedAnime} onDeleteWatchedAnime={handleDeleteWatchedAnime} />)
   :
   (<>
     <WatchedAnimeSummary watchedAnime={watchedAnime} />

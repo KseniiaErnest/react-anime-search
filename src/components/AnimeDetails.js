@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import StarComponent from "./StarComponent";
+import WatchedAnimeList from "./WatchedAnimeList";
+import WatchedAnimeSummary from "./WatchedAnimeSummary";
 
-export default function AnimeDetails( {selectId, onCloseAnime, anime, onAddWatchedAnime, watchedAnime} ) {
+export default function AnimeDetails( {selectId, onCloseAnime, anime, onAddWatchedAnime, watchedAnime, onDeleteWatchedAnime} ) {
 const selectedAnime = anime.find((animeToSelect) => animeToSelect.mal_id === selectId);
 const [userRating, setUserRating] = useState('');
 
@@ -61,22 +63,82 @@ function callback(e) {
   }
     }, [onCloseAnime]);
 
-  return(
+    return(
+      <div>
+      
+       {!selectedAnime ? (
+        <>
+    <WatchedAnimeSummary watchedAnime={watchedAnime} />
+  <WatchedAnimeList watchedAnime={watchedAnime} onDeleteWatchedAnime={onDeleteWatchedAnime} />
+  </> 
+       ) : (
+        <>
+       <div className="anime-details-flex">
+       <button className="btn-back" onClick={onCloseAnime}>&larr;</button>
+      <img src={selectedAnime?.images?.jpg?.image_url} alt={selectedAnime.title} />
+      <div>
+       <h3>{selectedAnime?.title}</h3>
+       <p>{selectedAnime?.aired?.prop?.from?.year}</p>
+       <p>{selectedAnime?.duration}</p>
+       <p>{selectedAnime?.episodes} episode(s)</p>
+       {selectedAnime?.genres && (
+             <p>Genres: {selectedAnime.genres.map((genre) => genre.name).join(', ')}</p>
+           )}
+       <p>Rating: {selectedAnime?.rating}</p>
+       <div className="rating-box">
+            <img className="rating" src="/rating.png" alt="icon" />
+            <span>{selectedAnime?.score}</span>
+            </div>
+      
+       </div>
+       </div>
+      
+       <div className="anime-details-synopsis">
+       {!isWatched ? (
+         <>
+         <StarComponent maxRating={10} onSetRating={setUserRating} size={36} color='#8e44ad' />
+       {userRating > 0 && (
+         <button className="btn-add" onClick={handleAdd}>+ Add to list</button>
+         )}
+         </>) : (
+           <p>You rated this anime {watchedUserRating}</p>
+         )}
+         <p className="synopsis">{selectedAnime?.synopsis}</p>
+       </div>
+       </>)
+       }
+       </div> 
+      
+       
+        )
+
+}
+
+
+
+/* 
+return(
 <div>
- 
+
+ {selectedAnime &&
+ <>
  <div className="anime-details-flex">
  <button className="btn-back" onClick={onCloseAnime}>&larr;</button>
 <img src={selectedAnime?.images?.jpg?.image_url} alt={selectedAnime.title} />
 <div>
  <h3>{selectedAnime?.title}</h3>
- <p>{selectedAnime?.aired.prop.from.year}</p>
+ <p>{selectedAnime?.aired?.prop?.from?.year}</p>
  <p>{selectedAnime?.duration}</p>
  <p>{selectedAnime?.episodes} episode(s)</p>
  {selectedAnime?.genres && (
        <p>Genres: {selectedAnime.genres.map((genre) => genre.name).join(', ')}</p>
      )}
  <p>Rating: {selectedAnime?.rating}</p>
- <p>⭐ {selectedAnime?.score}</p>
+ <div className="rating-box">
+      <img className="rating" src="/rating.png" alt="icon" />
+      <span>{selectedAnime?.score}</span>
+      </div>
+
  </div>
  </div>
 
@@ -85,17 +147,16 @@ function callback(e) {
    <>
    <StarComponent maxRating={10} onSetRating={setUserRating} size={36} color='#8e44ad' />
  {userRating > 0 && (
-   <button onClick={handleAdd}>+ Add to list</button>
+   <button className="btn-add" onClick={handleAdd}>+ Add to list</button>
    )}
    </>) : (
      <p>You rated this anime {watchedUserRating}</p>
    )}
-   <p>{selectedAnime?.synopsis}</p>
+   <p className="synopsis">{selectedAnime?.synopsis}</p>
  </div>
- 
+ </>
+ }
  </div> 
 
  
-  )
-
-}
+  ) */

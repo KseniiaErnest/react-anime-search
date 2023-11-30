@@ -10,9 +10,17 @@ export default function WatchedAnimeSummary( {watchedAnime} ) {
     <h3>Anime you watched</h3>
     <div>
       <p>{watchedAnime.length} movies</p>
-      <p>⭐ {avgAnimeRating.toFixed(2)}</p>
-      <p>✨ {avgUserRating.toFixed(2)}</p>
-      <p>⏰min</p>
+      <div className="rating-box">
+      <img className="rating" src="/rating.png" alt="icon" />
+      <span>{avgAnimeRating.toFixed(2)}</span>
+      </div>
+
+      <div className="rating-box">
+      <img className="rating" src="/user rating.png" alt="icon" />
+      <span>{avgUserRating.toFixed(2)}</span>
+      </div>
+    
+    
     </div>
     </div>
   )

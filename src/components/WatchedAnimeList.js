@@ -11,7 +11,7 @@ export default function WatchedAnimeList( {watchedAnime, onDeleteWatchedAnime} )
       
         <h2>{anime.title}</h2>
         <p>{anime.episodes} episode(s) * {anime.duration}</p>
-        <p>{anime.score}</p>
+        <p>Average rating: {anime.score}</p>
         <p>Your rating: {anime.userRating}</p>
       </div>
       <button onClick={() => onDeleteWatchedAnime(anime.animeId)}>X</button>
