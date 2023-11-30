@@ -8,12 +8,13 @@ export default function WatchedAnimeList( {watchedAnime, onDeleteWatchedAnime} )
       <li className="anime-info-li">
       <img src={anime.image} alt={anime.title} />
       <div>
+      
         <h2>{anime.title}</h2>
-        <p>{anime.score}</p>
-        <p>{anime.userRating}</p>
         <p>{anime.episodes} episode(s) * {anime.duration}</p>
-        <button onClick={() => onDeleteWatchedAnime(anime.animeId)}>X</button>
+        <p>{anime.score}</p>
+        <p>Your rating: {anime.userRating}</p>
       </div>
+      <button onClick={() => onDeleteWatchedAnime(anime.animeId)}>X</button>
       </li>
     ))
      

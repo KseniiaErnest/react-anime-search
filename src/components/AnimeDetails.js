@@ -72,18 +72,18 @@ function callback(e) {
  <p>{selectedAnime?.aired.prop.from.year}</p>
  <p>{selectedAnime?.duration}</p>
  <p>{selectedAnime?.episodes} episode(s)</p>
- <p>Rating: {selectedAnime?.rating}</p>
- <p>⭐ {selectedAnime?.score}</p>
  {selectedAnime?.genres && (
        <p>Genres: {selectedAnime.genres.map((genre) => genre.name).join(', ')}</p>
      )}
+ <p>Rating: {selectedAnime?.rating}</p>
+ <p>⭐ {selectedAnime?.score}</p>
  </div>
  </div>
 
  <div className="anime-details-synopsis">
  {!isWatched ? (
    <>
-   <StarComponent maxRating={10} onSetRating={setUserRating} />
+   <StarComponent maxRating={10} onSetRating={setUserRating} size={36} color='#8e44ad' />
  {userRating > 0 && (
    <button onClick={handleAdd}>+ Add to list</button>
    )}
