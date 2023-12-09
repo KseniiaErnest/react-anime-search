@@ -4,7 +4,9 @@ export default function WatchedAnimeList( {watchedAnime, onDeleteWatchedAnime} )
 
   return(
     <ul className="anime-ul">
-    {watchedAnime?.map((anime) => (
+    {watchedAnime?.map((anime) => 
+{console.log('anime:', anime);
+    return (
       <li className="anime-info-li" key={anime.animeId}>
       <img src={anime?.image} alt={anime?.title} />
       <div>
@@ -16,7 +18,8 @@ export default function WatchedAnimeList( {watchedAnime, onDeleteWatchedAnime} )
       </div>
       <button onClick={() => onDeleteWatchedAnime(anime?.animeId)}>X</button>
       </li>
-    ))}
+    )}
+    )}
     </ul>
   )
 }
