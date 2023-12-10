@@ -1,6 +1,9 @@
+import Message from "./Message";
 import StarComponent from "./StarComponent"
 
 export default function WatchedAnimeList( {watchedAnime, onDeleteWatchedAnime} ) {
+
+if (!watchedAnime.length) return <Message message='Add anime in your watched list!' />
 
   return(
     <ul className="anime-ul">
