@@ -11,12 +11,12 @@ export default function WatchedAnimeSummary( {watchedAnime} ) {
     <div>
       <p>{watchedAnime.length} movies</p>
       <div className="rating-box">
-      <img className="rating" src="/rating.png" alt="icon" />
+      <img className="rating" src={process.env.PUBLIC_URL + "/rating.png"} alt="icon" />
       <span>{avgAnimeRating.toFixed(2)}</span>
       </div>
 
       <div className="rating-box">
-      <img className="rating" src="/user rating.png" alt="icon" />
+      <img className="rating" src={process.env.PUBLIC_URL + "/user rating.png"} alt="icon" />
       <span>{avgUserRating.toFixed(2)}</span>
       </div>
     
